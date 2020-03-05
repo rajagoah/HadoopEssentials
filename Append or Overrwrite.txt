@@ -1,0 +1,24 @@
+Learning commands that are used to Append or overwrite data in a directory
+
+COMMAND1 -- delete-target-dir
+
+	sqoop import \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/sakila" \
+	--username root \
+	--password cloudera \
+	--table rental \
+	--where "date(rental_date) > '2007-07-30'" \
+	--target-dir "SqoopImport/rental" \
+	--delete-target-dir \
+	--num-mappers 1 \
+
+COMMAND2 -- append
+	sqoop import \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/sakila" \
+	--username root \
+	--password cloudera \
+	--table rental \
+	--where "date(rental_date) <= '2007-07-30'" \
+	--target-dir "SqoopImport/rental" \
+	--append \
+	--num-mappers 1
