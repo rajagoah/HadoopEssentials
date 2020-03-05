@@ -1,0 +1,23 @@
+Meta information commands
+--These commands enable us to look in to the database within the MySQL server, without actually logging in through the terminal.
+
+
+They are:
+COMMAND 1 --> list-databases 
+	sqoop list-databases \
+	--connect "jdbc:mysql://quickstart.cloudera.3306" \
+	--username root
+	--password cloudera
+
+COMMAND 2 --> list-tables
+	sqoop list-tables \
+	--connect "jdbc:mysql://quickstart.cloudera.3306/sakila" \
+	--username root
+	--password cloudera
+
+COMMAND 3 --> eval
+	sqoop eval \
+	--connect "jdbc:mysql://quickstart.cloudera.3306/sakila" \
+	--username root
+	--password cloudera
+	--query "SELECT * FROM rental LIMIT 10"
