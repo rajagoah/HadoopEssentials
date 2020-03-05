@@ -1,0 +1,67 @@
+Basic Sqoop commands
+1. import ——————————————————————— 	mport a Table from a database to HDFS
+2. import-all-tables ——————————————————— 	Import tables from a database to HDFS
+3. import-mainframe ——————————————————	Import mainframe datasets to HDFS
+4. list-databases ———————————————————— 	List available databases on a server
+5. list-tables —————————————————————— 	List available tables in a database
+
+6. export  ——————————————————————— 	Export an HDFS directory to a database table
+7. create-hive-table ——————————————————		Import a table definition into HIVE
+8 eval  ———————————————————————— 	Evaluate a SQL statement and display the results
+9. codegen ——————————————————————	Generate code to interact with database records
+
+***********************************************TO LOG IN TO MYSQL******************************************
+1. mysql -u root -p cloudera
+
+**********************************************TO SHOW DATABASES IN MYSQL****************************
+1. SHOW DATABASES;
+
+**********************************************TO WORK WITH A DATABASE*********************************
+1. USE <database name>;
+
+**********************************************TO SEE TABLES IN A DATABASE******************************
+1. SHOW TABLES;
+
+***********************************************SAMPLE SQOOP IMPORT COMMAND************************
+sqoop import \ 
+—connect “jdbc:mysql://quickstart.cloudera:3306/sakila” \
+—username root \
+—password cloudera \
+—table rental \
+—taget-dir “SqoopImport/rental”
+—num-mappers 1
+
+NOTE: The way that the target directory works is that the rental folder cannot exist within the Sqoopimport directory. This is done as a safeguard to ensure that the import operation doesn’t overwrite existing information within the Sqoopimport directory
+
+SYNTAX IS:
+sqoop import \ 
+—connect “<connection name within double quotes>” \
+—username <username> \
+—password <password> \
+—table <table name> \
+—target-dir “<target directory name>” \
+—num-mappers <number of mappers always defaults to 1. We can increment this number based on the volume of data being imported> 
+
+*********************************************** SQOOP IMPORT WITH WAREHOUSE-DIR ARGUMENT************************
+sqoop import \ 
+—connect “jdbc:mysql://quickstart.cloudera:3306/sakila” \
+—username root \
+—password cloudera \
+—table rental \
+—warehouse-dir “SqoopImport/sakila”
+—num-mappers 1
+
+NOTE: The way that the target directory works in this case is that the import operation will create a folder called “Rental” inside the “sakila” folder mentioned in the warehouse-dir “SqoopImport/sakila” path
+
+SYNTAX IS:
+sqoop import \ 
+—connect “<connection name within double quotes>” \
+—username <username> \
+—password <password> \
+—table <table name> \
+—warehouse-dir “<target directory name within double quotes>” \
+—num-mappers <number of mappers always defaults to 1. We can increment this number based on the volume of data being imported> 
+
+
+
+
