@@ -1,0 +1,27 @@
+What is the difference between target-dir and warehouse-dir?
+Ans:
+target-dir —> this control argument creates a directory with the name specified in the control argument. This directory works as the table name with the imported files.
+Example: The table being imported may be employee, but in the control argument if the name of the directory is “SqoopImport”, then "SqoopImport" becomes the name of the table and it contains the imported files.
+	sample script:
+	sqoop import \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/sakila" \
+	--username root \
+	--password cloudera \ 
+	--table rental
+	--target-dir "SqoopImport/" \
+	--num-mappers 1
+
+The data from the rental table will be stored in import files inside the SqoopImport (now the table name) directory
+	
+warehouse-dir —> this control argument creates a directory within the specified warehouse directory with the name of the table being Imported. Inside that directory the import files will reside 
+	sample script:
+	sqoop import \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/sakila" \
+	--username root \
+	--password cloudera \ 
+	--table rental
+	--warehouse-dir "SqoopImport/" \
+	--num-mappers 1
+	
+Inside the warehouse directory SqoopImport the table directory "rental" will be created within which the import files will be present.
+
