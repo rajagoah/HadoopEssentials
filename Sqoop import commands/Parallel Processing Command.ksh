@@ -6,7 +6,7 @@
 
 COMMAND1—> 
 	sqoop import \
-	--connect "jdbc:mysql:/quickstart.cloudera:3306/customer" \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/customer" \
 	--username root \
 	--password cloudera \
 	--table customer \
@@ -20,7 +20,7 @@ COMMAND1—>
 
 COMMAND1—> 
 	sqoop import \
-	--connect "jdbc:mysql:/quickstart.cloudera:3306/customer" \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/customer" \
 	--username root \
 	--password cloudera \
 	--table customer \
