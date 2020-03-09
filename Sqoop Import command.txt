@@ -24,43 +24,72 @@ Basic Sqoop commands
 
 ***********************************************SAMPLE SQOOP IMPORT COMMAND************************
 sqoop import \ 
-—connect “jdbc:mysql://quickstart.cloudera:3306/sakila” \
-—username root \
-—password cloudera \
-—table rental \
-—taget-dir “SqoopImport/rental”
-—num-mappers 1
+—-connect “jdbc:mysql://quickstart.cloudera:3306/sakila” \
+—-username root \
+—-password cloudera \
+—-table rental \
+—-taget-dir “SqoopImport/rental”
+—-num-mappers 1
 
-NOTE: The way that the target directory works is that the rental folder cannot exist within the Sqoopimport directory. This is done as a safeguard to ensure that the import operation doesn’t overwrite existing information within the Sqoopimport directory
+
+NOTE: 
+1. The way that the target directory works is that the rental folder cannot exist within the Sqoopimport directory. This is done as a safeguard to ensure that the import operation doesn’t overwrite existing information within the Sqoopimport directory
+2. The control argument "--num-mappers" can be replaced with "-m". So the code can rewritten as:
+	sqoop import \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/sakila" \
+	--username root \
+	--password cloudera \
+	--table rental \
+	--target-dir "SqoopImport/sakila" \
+	-m 1
+
 
 SYNTAX IS:
 sqoop import \ 
-—connect “<connection name within double quotes>” \
-—username <username> \
-—password <password> \
-—table <table name> \
-—target-dir “<target directory name>” \
-—num-mappers <number of mappers always defaults to 1. We can increment this number based on the volume of data being imported> 
+—-connect “<connection name within double quotes>” \
+—-username <username> \
+—-password <password> \
+—-table <table name> \
+—-target-dir “<target directory name>” \
+—-num-mappers <number of mappers always defaults to 1. We can increment this number based on the volume of data being imported> 
+
+sqoop import \ 
+—-connect “<connection name within double quotes>” \
+—-username <username> \
+—-password <password> \
+—-table <table name> \
+—-target-dir “<target directory name>” \
+-m <Another way to represent the number of mappers. number of mappers always defaults to 1. We can increment this number based on the volume of data being imported> 
+
 
 *********************************************** SQOOP IMPORT WITH WAREHOUSE-DIR ARGUMENT************************
 sqoop import \ 
-—connect “jdbc:mysql://quickstart.cloudera:3306/sakila” \
-—username root \
-—password cloudera \
-—table rental \
-—warehouse-dir “SqoopImport/sakila”
-—num-mappers 1
+—-connect “jdbc:mysql://quickstart.cloudera:3306/sakila” \
+—-username root \
+—-password cloudera \
+—-table rental \
+—-warehouse-dir “SqoopImport/sakila”
+—-num-mappers 1
 
 NOTE: The way that the target directory works in this case is that the import operation will create a folder called “Rental” inside the “sakila” folder mentioned in the warehouse-dir “SqoopImport/sakila” path
 
 SYNTAX IS:
 sqoop import \ 
-—connect “<connection name within double quotes>” \
-—username <username> \
-—password <password> \
-—table <table name> \
-—warehouse-dir “<target directory name within double quotes>” \
-—num-mappers <number of mappers always defaults to 1. We can increment this number based on the volume of data being imported> 
+--connect “<connection name within double quotes>” \
+--username <username> \
+--password <password> \
+--table <table name> \
+--warehouse-dir “<target directory name within double quotes>” \
+--num-mappers <number of mappers always defaults to 1. We can increment this number based on the volume of data being imported> 
+
+SYNTAX IS:
+sqoop import \ 
+--connect “<connection name within double quotes>” \
+--username <username> \
+--password <password> \
+--table <table name> \
+--warehouse-dir “<target directory name within double quotes>” \
+—m <Another way to represent the number of mappers. number of mappers always defaults to 1. We can increment this number based on the volume of data being imported>
 
 
 
