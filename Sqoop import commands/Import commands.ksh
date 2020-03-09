@@ -7,7 +7,7 @@
 	—password cloudera \
 	—table rental \ 
 	—target-dir “SqoopImport/sakila” \
-	—num-mappers 1
+	—m 1
 
 #COMMAND2 with warehouse-dir control argument
 	sqoop import \
@@ -16,4 +16,4 @@
 	—password cloudera \
 	— table rental \ 
 	—warehouse-dir “SqoopImport” \
-	—num-mappers 1
+	—m 1
