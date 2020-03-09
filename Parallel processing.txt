@@ -11,7 +11,7 @@ Eg: Let us take CUSTOMER table with CUST_ID as the PK.
 This Control argument will instruct sqoop to use a designated column to perform the parallel processing.
 
 eg. 	sqoop import \
-	--connect "jdbc:mysql:/quickstart.cloudera:3306/customer" \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/customer" \
 	--username root \
 	--password cloudera \
 	--table customer \
