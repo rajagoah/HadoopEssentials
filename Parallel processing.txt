@@ -1,0 +1,28 @@
+Managing parallel processing:
+1. Upon import of a table from the MySQL database, with "-m 2", the backend splits the records between the 2 mappers across its PK.
+
+Eg: Let us take CUSTOMER table with CUST_ID as the PK.
+
+	1ST MAPPER --	SELECT * FROM CUSTOMER WHERE CUST_ID = LOW AND CUST_ID = MID
+
+	2ND MAPPER -- SELECT * FROM CUSTOMER WHERE CUST_ID = MID AND CUST_ID = HIGH
+
+2. However, if upon import the PK column is dropped then the import command will spit out an error stating that the import command needs to be specified with a "--split-by" control argument.
+This Control argument will instruct sqoop to use a designated column to perform the parallel processing.
+
+eg. 	sqoop import \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/customer" \
+	--username root \
+	--password cloudera \
+	--table customer \
+	--target-dir "SqoopImport/customer" \
+	--split-by address_id \
+	-m 2
+	
+
+With the "--split-by" control argument, sqoop will split the load of records approximately equally across the 2 mappers.
+
+3. There are specific criteria for selecting a split by column, in lieu of a PK.
+	a. The column should NOT contain NULLs
+	b. Upon study of the data, splitting the data load across that column should resolve into approximately equal load
+	c. It is advisable to avoid using "Name" fields as in cases of names, there are more names that fall between A-L and fewer between M-Z.
