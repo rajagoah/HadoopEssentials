@@ -1,0 +1,16 @@
+Importing data into different formats:
+	as-parquetfile	--	columnar
+	as-textfile	--	default
+	as-sequencefile --	Binary
+	as-avrodatafile --	JSON+Binary
+
+COMMAND:	
+	sqoop import \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/sakila" \
+	--username root	\
+	--password cloudera \
+	--table customer \
+	--target-dir "SqoopImport/sakila" \
+	--delete-target-dir \
+	--as-parquetfile
+	-m 2
