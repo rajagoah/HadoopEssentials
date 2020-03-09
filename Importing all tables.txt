@@ -6,7 +6,7 @@ COMMAND1:
 	--username cloudera \
 	--password root \
 	--warehouse-dir "SqoopImport/sakila" \
-	--reset-to-one-mapper \
+	--autoreset-to-one-mapper \
 	-m 2
 
 

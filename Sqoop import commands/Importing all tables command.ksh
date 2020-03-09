@@ -11,5 +11,6 @@
 	--username root \
 	--password cloudera \
 	--warehouse-dir "SqoopImport/sakila" \
-	--reset-to-one-mapper
+	--autoreset-to-one-mapper
+
 	-m 2
