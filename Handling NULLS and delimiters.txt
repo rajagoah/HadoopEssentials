@@ -1,0 +1,47 @@
+Handling NULLs
+
+To handle NULLs in the data set being imported, Sqoop allows us to choose a default value to replace NULLs with.
+
+The control argument for this is: "--null-string" or "--null-non-string"
+
+
+COMMAND1:
+	sqoop import \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/sakila" \
+	--username root \
+	--password cloudera \
+	--table customer \
+	--target-dir "SqoopImport/sakila" \
+	--delete-target-dir \
+	--null-string "NA" \
+	--null-non-string 0 \
+	-m 2
+
+Handling delimiters
+
+To handle delimiters, there are 4 specific control arguments:
+1. --fields-terminated-by 
+2. --lines-terminated-by
+3. --enclosed-by
+4. --optionally-enclosed-by
+
+The "--encolosed-by" control argument encloses each value between the delimiter with the specified character
+However,"--optionally-enclosed-by" will enclose only those values that have the character specified for "--fields-terminated-by" within them.
+
+A good example will be as follows:
+
+COMMAND2:
+	sqoop import \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/sakila" \
+	--username root \
+	--password cloudera \
+	--table customer \
+	--target-dir "SqoopImport/sakila" \
+	--null-string "NA" \
+	--null-non-string 0 \
+	--fields-terminated-by ":" \
+	--lines-terminated-by "\n" \
+	--optionally-enclosed-by "\"" \
+	-m 1
+
+In the above command, if there is a timestamp field in the table being imported and it looks like : 2019-12-12 12:21:21. Then upon import, the "--optionally-enclosed-by" control argument will enclose only the timestamp fields with the double quotes.
