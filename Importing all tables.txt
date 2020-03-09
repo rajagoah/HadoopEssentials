@@ -1,0 +1,13 @@
+Importing all tables
+
+COMMAND1:
+	sqoop import-all-tables \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/sakila" \
+	--username cloudera \
+	--password root \
+	--warehouse-dir "SqoopImport/sakila" \
+	--reset-to-one-mapper \
+	-m 2
+
+
+The "--reset-to-one-mapper" control argument prevents the sqoop import from failing due to absence of a PK for the tables being imported through the "import-all-tables" command
