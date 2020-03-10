@@ -1,0 +1,85 @@
+BASIC HIVE import.
+
+This is a useful feature because it allows the user to port the data over to the HIVE database, where we can leverage the SPARK shell to perform transformations on the data.
+
+Additionally, we can join disparate sources of data (one RDBMS and the other in the form of txt file) by importing them both into HIVE.
+
+COMMAND1: to import 1st half of the data
+	sqoop import \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/sakila" \
+	--username root \
+	--password cloudera \
+	--table payment \
+	--where "payment_id <= 8000" \
+	--hive-import \
+	--hive-database sqoop \
+	--hive-table payment
+
+COMMAND2: To import the 2nd half of the data. Note that the default function of the import command is to append to the existing data set.
+
+COMMAND1:
+	sqoop import \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/sakila" \
+	--username root \
+	--password cloudera \
+	--table payment \
+	--where "payment_id > 8000" \
+	--hive-import \
+	--hive-database sqoop \
+	--hive-table payment
+
+
+How the above code functions:
+	Running the above code will 1st perform a sqoop import that will port over the data in to the root directory and create a staging directory called Payment. Post the creation of the staging directory, the data will be moved in to previously created Sqoop directory and it will be designated as the warehouse directory.
+
+Upon executing the "DESCRIBE FORMATTED" statement on the HIVE shell, we can see the path where all the data resides.
+
+NOTE: 
+	1. if the payment directory already exists, then the import will fail.
+	2. It is unclear however on whether we can use multiple mappers with the HIVE import commands
+
+ADVANCED HIVE import.
+
+There are the following 4 control arguments that can be used to fine tune the HIVE import.
+	1. --hive-overwrite 		->	as the name suggests, this control argument will overwrite the existing table
+	2. sqoop import-all-tables	->	This is not a control argument, but the name of the import command itself. When used in conjunction with the --hive-import control argument, it will import 						all the tables with in the database in to HIVE
+	3. --create-hive-table 		->	This control argument tells HIVE to create a table if the table doesn't exist. However, similar to the sqoop import, the import operation will fail if it 						already exists
+	4. --map-column-hive		-> 	This control argument is used to type case fields to needed data types
+
+COMMAND3: using import-all-tables command
+	sqoop import-all-tables \
+	--connect "jdbc:/mysql://quickstart.cloudera:3306/sakila" \
+	--username root \
+	--password cloudera \
+	--hive-import \
+	--hive-database sqoop 
+
+COMMAND4: Using the other control arguments together except the --hive-overwrite as it is unclear if it can be used in conjunction with the --create-hive-table control argument.
+	sqoop import \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/sakila" \
+	--username root \
+	--password cloudera \
+	--table payment \
+	--where "payment_id > 8000" \
+	--hive-import \
+	--hive-database sqoop \
+	--hive-table payment \
+	--hive-overwrite \
+	--create-hive-table \
+	--map-column-hive payment_date = date, update_date = date
+
+COMMAND5: Using the --hive-overwrite control argument
+	sqoop import \
+	--connect "jdbc:mysql://quickstart.cloudera:3306/sakila" \
+	--username root \
+	--password cloudera \
+	--table payment \
+	--where "payment_id > 8000" \
+	--hive-import \
+	--hive-database sqoop \
+	--hive-table payment \
+	--hive-overwrite
+
+
+
+	 
