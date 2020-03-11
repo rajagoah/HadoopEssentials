@@ -1,0 +1,18 @@
+A file documenting essentials of Hadoop
+
+-put command allows us to upload the data from the local to the Hadoop file system. 
+COMMAND:
+  hadoop fs -put '<file along with full path>' <destination directory name>
+
+NOTE: 
+	To create a target folder with the same name as that of the folder being imported, ensure that the destination directory is created prior to firing the above command. If Hadoop finds that the destination directory doesn't already exist, then Hadoop will create it dynamically but, the data inside such a directory will not contain the name of the folder being imported.
+
+
+
+
+
+-get command allows us to do the opposite of -put. It allows us to download the data from the Hadoop file system to the local.
+The destination argument can be left blank, in which case the file gets downloaded at the Cloudera root folder.
+
+COMMAND:
+  hadoop fs -get <file name with the full hadoop fs path> <to the destination folder in local> 
